@@ -13,3 +13,6 @@ Supported actions for each button:
 Short press
 Double press
 Long press (5 seconds)
+
+
+Blue print link : https://github.com/j5k7/blueprint-ha-ESW-0ZAB-EU/blob/main/blueprint-ha
