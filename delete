@@ -1,0 +1,36 @@
+blueprint:
+  name: ZHA - Button Scene Switch
+  description: Automate Button  using ZHA events.
+  domain: automation
+  input:
+    tuya_button_scene_switch:
+      name: Tuya Button Scene Switch
+      description: Tuya Button Scene Switch to use
+      selector:
+        device:
+          integration: zha
+          manufacturer: _TYZB01_bngwdjsr
+          model: TS1001
+    button_one_short_press:
+      name: Single Press
+      description: Action to run on button press
+      default: []
+      selector:
+        action: {}
+mode: restart
+max_exceeded: silent
+trigger:
+- platform: event
+  event_type: zha_event
+  event_data:
+    device_id: !input 'tuya_button_scene_switch'
+action:
+- variables:
+    command: '{{ trigger.event.data.command }}'   
+    endpoint_id: '{{ trigger.event.data.endpoint_id }}'
+- choose:
+  - conditions: "{{ command == 'step' }}"
+    sequence:
+    - choose:
+      - conditions: '{{ endpoint_id == 1 }}'
+        sequence: !input 'button_one_short_press'
