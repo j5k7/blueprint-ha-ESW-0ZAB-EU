@@ -28,9 +28,10 @@ action:
 - variables:
     command: '{{ trigger.event.data.command }}'   
     endpoint_id: '{{ trigger.event.data.endpoint_id }}'
+    args: '{{ trigger.event.data.args }}'
 - choose:
   - conditions: "{{ command == 'step' }}"
     sequence:
     - choose:
-      - conditions: '{{ endpoint_id == 1 }}'
+      - conditions: '{{ args == [ 1,51,10] }}'
         sequence: !input 'button_one_short_press'
